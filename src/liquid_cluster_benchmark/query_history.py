@@ -19,6 +19,7 @@ params = {
 }
 
 queries = []
+out_file = Path("static/queries.txt")
 has_next_page = True
 while has_next_page:
     resp = requests.get(host + path, headers=headers, json=params).json()
@@ -29,4 +30,4 @@ while has_next_page:
     has_next_page = resp.get("has_next_page", False)
     params["page_token"] = resp.get("next_page_token")
 
-Path("queries.txt").write_text("\n".join(queries))
+out_file.write_text("\n".join(queries))
